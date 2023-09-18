@@ -1,0 +1,53 @@
+{% load static %}
+
+<header class="">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><h2>Stand Blog<em>.</em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if request.resolver_match.app_name == 'home' %} active {% endif %}" >
+                        <a class="nav-link" href="{% url 'home:home' %}">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'list' %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'blog:list' %}">All Article</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Post Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:contactus' %}">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if request.user.is_authenticated %}
+                            <div class="d-flex">
+                                {% if user.profile.image %}
+                                    <img src="{{ user.profile.image.url }}" width="55px" height="50px"
+                                         style="border-radius: 100%" alt="">
+                                {% else %}
+                                    <span><img src="{% static 'images/icons/profile.jpg' %}" width="55px" height="50px"
+                                               style="border-radius: 100%" alt=""></span>
+                                {% endif %}
+                                <a class="nav-link" href="">{{ user.username }}</a>
+                                <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
+                                {% else %}
+                                <a class="nav-link" href="{% url 'account:login' %}">Login</a>
+                                <a class="nav-link" href="{% url 'account:register' %}">Register</a>
+                            </div>
+                        {% endif %}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
