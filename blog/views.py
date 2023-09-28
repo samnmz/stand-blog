@@ -1,4 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views import View
+
 from blog.models import Article, Category, Comment, Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
@@ -66,3 +69,11 @@ class ContactUsView(FormView):
         form_data = form.cleaned_data
         Message.objects.create(**form_data)
         return super().form_valid(form)
+
+
+class TestView(View):
+    name = "saman"
+
+    def get(self, request):
+        return HttpResponse(self.name)
+    
